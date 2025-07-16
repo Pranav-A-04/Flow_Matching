@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 def test(model, num_steps):
     model.eval()
-    xt = th.randint(1000, 2) # Random test data
+    xt = th.randn(1000, 2) # Random test data
     for i, t in enumerate(th.linspace(0, 1, num_steps), start=1):
         with th.no_grad():
             pred = model(xt, t.expand(xt.size(0)))
