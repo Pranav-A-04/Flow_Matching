@@ -1,3 +1,4 @@
+import os
 from model.neural_net import MLP
 import torch as th
 import matplotlib.pyplot as plt
@@ -5,6 +6,10 @@ import matplotlib.pyplot as plt
 def test(model, num_steps):
     model.eval()
     xt = th.randn(1000, 2) # Random test data
+    
+    # Ensure the directory exists
+    os.makedirs("sampling_steps", exist_ok=True)
+    
     for i, t in enumerate(th.linspace(0, 1, num_steps), start=1):
         with th.no_grad():
             pred = model(xt, t.expand(xt.size(0)))
