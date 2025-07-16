@@ -10,11 +10,11 @@ def test(model, num_steps):
             pred = model(xt, t.expand(xt.size(0)))
         
         xt = xt + (1 / num_steps) * pred  # Update xt with prediction
-        plt.scatter(xt[:, 0].cpu().numpy(), xt[:, 1].cpu().numpy(), s=1, alpha=0.5)
+        plt.scatter(xt[:, 0].cpu().numpy(), xt[:, 1].cpu().numpy(), s=4, alpha=0.5)
         plt.title(f"Epoch {i}/{num_steps}")
         plt.xlim(-4, 4)
         plt.ylim(-4, 4)
-        plt.savefig(f"scatter_epoch_{i:04d}.png")  # Save the plot as an image
+        plt.savefig(f"sampling_steps/scatter_epoch_{i:04d}.png")  # Save the plot as an image
         plt.clf()  # Clear the figure for the next plot
     
     return xt
