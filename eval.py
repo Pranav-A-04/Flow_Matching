@@ -30,3 +30,7 @@ def eval(num_steps=1000):
     plt.ylim(-4, 4)
     plt.savefig(f"final_scatter.png")  # Save the plot as an image
     plt.clf()  # Clear the figure for the next plot
+    
+if __name__ == "__main__":
+    eval(num_steps=1000)
+    print("Evaluation complete. Check the saved images for results.")
