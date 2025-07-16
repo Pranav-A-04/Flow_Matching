@@ -12,10 +12,10 @@ def train(model, data, optimizer, num_epochs=100, batch_size=64):
     pbar = tqdm(range(num_epochs), desc="Training Progress")
     losses = []
     for epoch in pbar:
-        x1 = data[th.randint(data.shape[0], (batch_size,))]
+        x1 = data[th.randint(data.size(0), (batch_size,))]
         x0 = th.randn_like(x1)  # Random noise
         target = x1-x0  # Target is the difference
-        t = th.randint(x1.size(0))  # Random timesteps
+        t = th.rand(x1.size(0), device=x1.device)  # Random timesteps in [0, 1)
         xt = t[:, None]*x1 + (1-t[:, None])*x0  # Linear interpolation
         pred = model(xt, t)
         loss = ((pred - target)**2).mean()  # Mean squared error
@@ -46,9 +46,12 @@ def test(model, num_epochs):
 def main():
     # Example usage
     data = create_checkerboard(resolution=100)
+    print(data.shape)
+    data = th.Tensor(data)
+    print(data.size(0))
     num_epochs = 100000
     batch_size = 64
-    model = MLP(num_layers=5, embedding_dim=64, input_dim=2, hidden_dims=[128, 256, 128], output_dim=2)
+    model = MLP(embedding_dim=512, input_dim=2, hidden_dims=[512, 512, 512], output_dim=2)
     optimizer = th.optim.Adam(model.parameters(), lr=4e-4)
     train(model, data, optimizer, num_epochs=num_epochs, batch_size=batch_size)
     th.save(model.state_dict(), "model.pth")
@@ -65,4 +68,6 @@ def main():
     plt.savefig(f"final_scatter.png")  # Save the plot as an image
     plt.clf()  # Clear the figure for the next plot
     
-    
+if __name__ == "__main__":
+    main()
+
