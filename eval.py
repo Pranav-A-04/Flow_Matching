@@ -25,10 +25,10 @@ def eval(num_steps=1000):
     trained_model.load_state_dict(th.load("model.pth"))
     trained_model.eval()
     xt = test(trained_model, num_steps=num_steps)
-    plt.scatter(xt[:, 0].cpu().numpy(), xt[:, 1].cpu().numpy(), s=1, alpha=0.5)
+    plt.scatter(xt[:, 0].cpu().numpy(), xt[:, 1].cpu().numpy(), s=4, alpha=0.5)
     plt.xlim(-4, 4)
     plt.ylim(-4, 4)
-    plt.savefig(f"final_scatter.png")  # Save the plot as an image
+    plt.savefig(f"sampling_steps/final_scatter.png")  # Save the plot as an image
     plt.clf()  # Clear the figure for the next plot
     
 if __name__ == "__main__":
